@@ -1,19 +1,17 @@
-import requests
-import os
+import util_tools
+import local_model
 
 # Public
-OLLAMA_SERVER_URL = "http://" + os.getenv('LLM_SERVER') + "/api/chat"
 
 
 
 
-def get_current_weather(params: list) -> str:
-    # Dummy implementation for illustration
-    return "The current weather in {} is 72 degrees {}".format(params[0], params[1])
+
+
 
 
 tools = {
-    "get_current_weather": get_current_weather,
+    "get_current_weather": util_tools.get_current_weather,
 }
 
 tool_calls = [
@@ -75,7 +73,7 @@ payload = {
 }
 
 def main():
-    response = requests.post(OLLAMA_SERVER_URL, json=payload)
+    response = local_model.call_model(payload)
     print(response.json())
     # print(response.json()['response'])
 
